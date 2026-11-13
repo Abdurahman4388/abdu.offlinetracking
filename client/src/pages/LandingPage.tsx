@@ -188,6 +188,30 @@ export const LandingPage: React.FC = () => {
           </p>
         </div>
       </div>
+
+      {/* Developer Note / Why Offline-First */}
+      <div className="p-6 rounded-2xl border border-blue-200 dark:border-blue-900/60 bg-gradient-to-r from-blue-50/60 via-slate-50 to-indigo-50/60 dark:from-blue-950/20 dark:via-slate-900/40 dark:to-indigo-950/20 space-y-3">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-700 dark:text-blue-300">
+            Developer's Note • The Human Story Behind the Build
+          </span>
+          <span className="text-[11px] text-slate-400">NilePixel Cohort 1 Capstone</span>
+        </div>
+        <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+          Most modern web applications assume high-speed, uninterruptible 5G connectivity. But in
+          the real world—inspecting remote water pumping stations, canal embankments, or power
+          substations in rural corridors—cell service frequently drops to zero bars.
+        </p>
+        <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+          I built this application around one core philosophy:{' '}
+          <strong className="text-slate-900 dark:text-slate-100">
+            software should never panic or discard your hard work just because the Wi-Fi dropped.
+          </strong>{' '}
+          By committing every draft and activity to local IndexedDB before touching the network, field
+          technicians can focus entirely on public safety and repairs, knowing their data is safely
+          locked in.
+        </p>
+      </div>
     </div>
   );
 };

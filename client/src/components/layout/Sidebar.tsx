@@ -139,9 +139,14 @@ export const Sidebar: React.FC = () => {
           </div>
         </div>
 
-        <p className="text-[10px] text-slate-400 dark:text-slate-500 text-center">
-          Graduation Project • Cohort 1
-        </p>
+        <div className="text-center space-y-1">
+          <p className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+            NilePixel Technologies • Cohort 1
+          </p>
+          <p className="text-[10px] text-slate-400 dark:text-slate-500">
+            Graduation Capstone Project • Offline-First
+          </p>
+        </div>
       </div>
     </aside>
   );

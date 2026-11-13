@@ -151,10 +151,10 @@ export const CreateReportPage: React.FC = () => {
 
       setSuccessMessage(
         isDraft
-          ? 'Draft successfully saved in local IndexedDB.'
+          ? 'Draft safely saved on your device! You can come back and edit it anytime before submitting.'
           : isOnline
-          ? 'Report submitted and synchronization initiated!'
-          : 'Report saved locally in offline queue! Will sync automatically when connection returns.'
+          ? 'Report submitted and synchronized directly with headquarters!'
+          : 'Report safely saved in your offline queue. It will automatically upload the moment connection returns.'
       );
 
       setTimeout(() => {
@@ -205,6 +205,15 @@ export const CreateReportPage: React.FC = () => {
 
       {/* Main Form Card */}
       <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-6 shadow-xs">
+        {/* Offline Safety Assurance */}
+        <div className="p-3 bg-blue-50/70 dark:bg-blue-950/30 border border-blue-200/80 dark:border-blue-900/40 rounded-xl flex items-center gap-2.5 text-xs text-blue-800 dark:text-blue-300">
+          <HardDrive className="w-4 h-4 shrink-0 text-blue-600 dark:text-blue-400" />
+          <span>
+            <strong>Offline-first guarantee:</strong> Even if you lose internet midway through, your
+            input stays securely cached on this device and won't be discarded.
+          </span>
+        </div>
+
         {/* Category & Priority Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>

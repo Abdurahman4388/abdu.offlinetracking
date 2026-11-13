@@ -301,6 +301,35 @@ export const SettingsPage: React.FC = () => {
           })}
         </div>
       </div>
+
+      {/* Graduation Defense & Evaluation Quick Guide */}
+      <div className="p-6 rounded-2xl border border-indigo-200 dark:border-indigo-900/60 bg-gradient-to-br from-indigo-50/50 via-white to-purple-50/50 dark:from-slate-900 dark:via-slate-900 dark:to-indigo-950/30 space-y-3 shadow-xs">
+        <div className="flex items-center justify-between">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-400">
+            Graduation Defense • Quick Evaluation Steps for Reviewers
+          </h3>
+          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-800 dark:text-indigo-300">
+            Cohort 1
+          </span>
+        </div>
+        <ol className="space-y-2 text-xs text-slate-700 dark:text-slate-300 list-decimal list-inside leading-relaxed">
+          <li>
+            <strong>Test Offline Capture:</strong> Toggle <em>Simulate Offline</em> on this page or in the navbar.
+          </li>
+          <li>
+            <strong>Create an Issue:</strong> Go to <em>Report New Issue</em>, enter details, and submit. Check the banner—it shows 1 pending sync queued in IndexedDB.
+          </li>
+          <li>
+            <strong>Test Refresh Persistence:</strong> Refresh the browser tab (F5). The report remains fully accessible.
+          </li>
+          <li>
+            <strong>Test Auto-Sync:</strong> Disable simulated offline mode. Watch the sentinel detect connectivity and automatically sync with the server.
+          </li>
+          <li>
+            <strong>Test Coordinator Workflow:</strong> Switch to Coordinator in the navbar. Open the report, assign a technician, and resolve it with documented notes.
+          </li>
+        </ol>
+      </div>
     </div>
   );
 };

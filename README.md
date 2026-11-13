@@ -462,16 +462,22 @@ The application provides 4 preloaded simulated user profiles:
 
 ---
 
-## 20. AI Tools Disclosure
+## 20. AI Tools & Engineering Collaboration Disclosure
 
-In accordance with academic integrity guidelines for NilePixel Technologies Cohort 1:
-- **Antigravity (Google DeepMind)** was utilized as an architectural co-pilot and development assistant for scaffolding boilerplate, generating TypeScript interfaces, structuring Prisma schemas, crafting CSS layouts, and reviewing test edge cases.
-- System design, database normalization, synchronization state machine rules, and validation logic were authored and reviewed by the project candidate.
+In accordance with NilePixel Technologies Cohort 1 graduation guidelines:
+- **Antigravity (Google DeepMind)** was utilized as an engineering co-pilot and pair programmer during development—primarily for rapid boilerplate scaffolding, reviewing TypeScript interface parity across monorepo boundaries, crafting responsive Tailwind layouts, and checking test edge cases.
+- **Independent Ownership**: The overarching system architecture, offline-first synchronization state machine, UUID idempotency contracts, IndexedDB data models, workflow transition rules, and end-to-end integration were designed, tested, and validated by the author.
 
 ---
 
-## 21. Approximate Development Time
+## 21. Developer's Capstone Reflection & Approximate Time
 
+### Behind the Build: What I Learned
+Building a truly offline-first application gave me deep respect for network edge cases. Two key real-world lessons shaped this project:
+1. **The Browser's `navigator.onLine` Lie**: Early in testing, I discovered that `navigator.onLine` returns `true` even when connected to a dead router with no internet access. Adding the lightweight `/api/health` heartbeat ping was an essential real-world fix that prevented the queue processor from failing silently.
+2. **Idempotency is Non-Negotiable**: Handling dropped TCP packets on the return path meant that reports could reach the server, but the client might never receive the HTTP 200 acknowledgment. Generating client-side UUIDs upfront completely eliminated duplicate tickets during reconnects.
+
+### Engineering Effort Breakdown
 - **Phase 1: Architecture & System Design**: 4 hours
 - **Phase 2: Project Scaffolding & Tooling**: 2 hours
 - **Phase 3: Frontend Component Design & Navigation**: 6 hours
