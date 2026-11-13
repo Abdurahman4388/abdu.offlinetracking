@@ -14,6 +14,7 @@
 [![Dexie.js](https://img.shields.io/badge/IndexedDB-Dexie.js-orange.svg)](https://dexie.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8.svg)](https://tailwindcss.com/)
 [![Tests](https://img.shields.io/badge/Tests-25%20Passed-success.svg)]()
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FAbdurahman4388%2Fabdu.offlinetracking)
 
 ---
 
@@ -345,8 +346,8 @@ Duplicate prevention is achieved deterministically through three architectural l
 ### Clone & Install
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd "OFFLINE FIELD ISSUE TRACKER"
+git clone https://github.com/Abdurahman4388/abdu.offlinetracking.git
+cd abdu.offlinetracking
 
 # Install all monorepo dependencies
 npm install
