@@ -1,0 +1,93 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  role      String   // "FIELD_WORKER" | "COORDINATOR"
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reportsCreated  Report[]   @relation("CreatedReports")
+  reportsAssigned Report[]   @relation("AssignedReports")
+  activities      Activity[]
+
+  @@index([role])
+}
+
+model Report {
+  id              String    @id // Client-generated UUID
+  category        String    // Water Supply, Electricity, Roads and Transportation, etc.
+  description     String
+  location        String
+  latitude        Float?
+  longitude       Float?
+  priority        String    // "Low" | "Medium" | "High" | "Critical"
+  status          String    // "DRAFT" | "SUBMITTED" | "ASSIGNED" | "IN_PROGRESS" | "RESOLVED" | "REJECTED"
+  syncStatus      String    @default("SYNCHRONIZED") // "PENDING" | "SYNCHRONIZING" | "SYNCHRONIZED" | "FAILED"
+  imageUrl        String?
+  
+  createdBy       String
+  creator         User      @relation("CreatedReports", fields: [createdBy], references: [id])
+  
+  assignedTo      String?
+  assignee        User?     @relation("AssignedReports", fields: [assignedTo], references: [id])
+  
+  rejectionReason String?
+  resolutionNotes String?
+  reopenReason    String?
+
+  version         Int       @default(1)
+  reportedAt      DateTime  @default(now())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  activities      Activity[]
+  syncAttempts    SyncAttempt[]
+
+  @@index([status])
+  @@index([priority])
+  @@index([category])
+  @@index([createdBy])
+  @@index([assignedTo])
+  @@index([reportedAt])
+}
+
+model Activity {
+  id           String   @id @default(uuid())
+  reportId     String
+  report       Report   @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  activityType String   // "CREATED" | "EDITED" | "SUBMITTED" | "SYNCED" | "ASSIGNED" | "STATUS_CHANGED" | "RESOLVED" | "REJECTED" | "REOPENED"
+  description  String
+  actorId      String
+  actor        User     @relation(fields: [actorId], references: [id])
+  metadata     String?  // JSON formatted details
+  createdAt    DateTime @default(now())
+
+  @@index([reportId])
+  @@index([activityType])
+  @@index([createdAt])
+}
+
+model SyncAttempt {
+  id            String   @id @default(uuid())
+  reportId      String
+  report        Report   @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  attemptNumber Int
+  result        String   // "SUCCESS" | "FAILED"
+  errorMessage  String?
+  clientPayload String?  // Snapshot of incoming payload
+  attemptedAt   DateTime @default(now())
+
+  @@index([reportId])
+  @@index([attemptedAt])
+}
+
