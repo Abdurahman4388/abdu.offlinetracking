@@ -1,7 +1,7 @@
 {
   "name": "offline-field-issue-tracker",
   "version": "1.0.0",
-  "description": "Professional Full-Stack, Offline-First Infrastructure Management System for NilePixel Technologies",
+  "description": "Professional Full-Stack, Offline-First Infrastructure Management System for NilePixel Technologies Cohort 1",
   "private": true,
   "workspaces": [
     "shared",
@@ -9,11 +9,13 @@
     "client"
   ],
   "scripts": {
-    "dev": "npm run dev --workspace=server & npm run dev --workspace=client",
     "dev:server": "npm run dev --workspace=server",
     "dev:client": "npm run dev --workspace=client",
-    "build": "npm run build --workspace=shared && npm run build --workspace=server && npm run build --workspace=client",
+    "build": "npm run build --workspace=server && npm run build --workspace=client",
     "test": "npm run test --workspace=server && npm run test --workspace=client",
+    "test:server": "npm run test --workspace=server",
+    "test:client": "npm run test --workspace=client",
+    "db:push": "npm run prisma:push --workspace=server",
     "db:seed": "npm run seed --workspace=server"
   },
   "keywords": [
@@ -29,4 +31,3 @@
   "author": "NilePixel Technologies Cohort 1",
   "license": "MIT"
 }
-
