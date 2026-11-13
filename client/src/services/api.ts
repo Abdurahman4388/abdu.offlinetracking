@@ -7,7 +7,7 @@ import {
   ReportStatus,
 } from '@offline-tracker/shared';
 
-const BASE_URL = '/api';
+const BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 interface ApiResponse<T> {
   success?: boolean;
