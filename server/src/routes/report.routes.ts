@@ -24,3 +24,4 @@ router.patch('/:id/status', validateBody(statusTransitionSchema), ReportControll
 router.patch('/:id/assign', validateBody(assignReportSchema), ReportController.assign);
 
 export default router;
+

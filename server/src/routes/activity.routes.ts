@@ -7,3 +7,4 @@ router.get('/recent', ActivityController.getRecentActivities);
 router.get('/reports/:id', ActivityController.getReportActivities);
 
 export default router;
+

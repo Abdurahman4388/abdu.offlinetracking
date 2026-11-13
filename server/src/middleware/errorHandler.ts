@@ -61,3 +61,4 @@ export function errorHandler(
     error: 'An internal server error occurred. Please try again later.',
   });
 }
+

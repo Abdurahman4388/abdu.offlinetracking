@@ -9,3 +9,4 @@ export const config = {
   databaseUrl: process.env.DATABASE_URL || 'file:./dev.db',
   clientUrl: process.env.CLIENT_URL || 'http://localhost:3000',
 };
+

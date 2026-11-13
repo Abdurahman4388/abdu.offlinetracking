@@ -7,3 +7,4 @@ router.get('/', UserController.list);
 router.get('/:id', UserController.getById);
 
 export default router;
+
