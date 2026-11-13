@@ -16,6 +16,7 @@ import {
   ResolveModal,
   ReopenModal,
   AssignModal,
+  EditDraftModal,
 } from '../components/workflow/WorkflowModals.js';
 import {
   MapPin,
@@ -29,6 +30,7 @@ import {
   Trash2,
   AlertOctagon,
   RefreshCw,
+  FileEdit,
 } from 'lucide-react';
 
 export const ReportDetailPage: React.FC = () => {
@@ -48,6 +50,7 @@ export const ReportDetailPage: React.FC = () => {
   const [isResolveOpen, setIsResolveOpen] = useState(false);
   const [isReopenOpen, setIsReopenOpen] = useState(false);
   const [isAssignOpen, setIsAssignOpen] = useState(false);
+  const [isEditDraftOpen, setIsEditDraftOpen] = useState(false);
 
   const loadReportData = async () => {
     if (!id) return;
@@ -176,6 +179,34 @@ export const ReportDetailPage: React.FC = () => {
       navigate('/reports');
     } catch (err: any) {
       setActionError(err.message || 'Failed to delete report');
+    }
+  };
+
+  const handleSaveDraft = async (updatedData: Partial<Report>) => {
+    setActionError(null);
+    try {
+      const updated: Report = {
+        ...report,
+        ...updatedData,
+        version: report.version + 1,
+      };
+      await ReportStorageService.saveReportLocally(
+        updated,
+        false,
+        'Draft report details updated'
+      );
+      if (isOnline) {
+        try {
+          await api.updateReport(report.id, { ...updatedData, actorId: currentUser.id });
+        } catch {
+          // Keep offline/local
+        }
+      }
+      setReport(updated);
+      setSuccessToast('Draft updated successfully');
+      loadReportData();
+    } catch (err: any) {
+      setActionError(err.message || 'Failed to update draft');
     }
   };
 
@@ -344,6 +375,13 @@ export const ReportDetailPage: React.FC = () => {
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>Submit to Coordinator Queue</span>
+                </button>
+                <button
+                  onClick={() => setIsEditDraftOpen(true)}
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-xl text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                >
+                  <FileEdit className="w-3.5 h-3.5 text-blue-500" />
+                  <span>Edit Draft Details</span>
                 </button>
                 {report.createdBy === currentUser.id && (
                   <button
@@ -520,6 +558,13 @@ export const ReportDetailPage: React.FC = () => {
         users={users}
         currentAssigneeId={report.assignedTo}
         onConfirm={handleAssign}
+      />
+
+      <EditDraftModal
+        isOpen={isEditDraftOpen}
+        onClose={() => setIsEditDraftOpen(false)}
+        report={report}
+        onSave={handleSaveDraft}
       />
     </div>
   );

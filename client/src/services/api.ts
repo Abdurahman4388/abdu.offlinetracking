@@ -95,7 +95,7 @@ export const api = {
     });
   },
 
-  async updateReport(id: string, report: Partial<Report>): Promise<Report> {
+  async updateReport(id: string, report: Partial<Report> & { actorId?: string }): Promise<Report> {
     return request<Report>(`/reports/${id}`, {
       method: 'PUT',
       body: JSON.stringify(report),
