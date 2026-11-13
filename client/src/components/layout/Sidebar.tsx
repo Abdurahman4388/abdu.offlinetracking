@@ -15,6 +15,11 @@ import {
 export const Sidebar: React.FC = () => {
   const { currentUser, isCoordinator } = useAuth();
   const { pendingSyncCount, isOnline } = useNetwork();
+  const [imgFailed, setImgFailed] = React.useState(false);
+
+  React.useEffect(() => {
+    setImgFailed(false);
+  }, [currentUser.id]);
 
   const links = [
     {
@@ -51,14 +56,21 @@ export const Sidebar: React.FC = () => {
       <div className="p-4 space-y-6">
         {/* User Card */}
         <div className="p-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 rounded-xl flex items-center gap-3">
-          {currentUser.avatar ? (
+          {currentUser.avatar && !imgFailed ? (
             <img
               src={currentUser.avatar}
               alt={currentUser.name}
+              onError={() => setImgFailed(true)}
               className="w-10 h-10 rounded-full object-cover ring-2 ring-blue-500/20"
             />
           ) : (
-            <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
+            <div
+              className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm text-white shadow-xs ${
+                isCoordinator
+                  ? 'bg-gradient-to-tr from-purple-600 to-indigo-600'
+                  : 'bg-gradient-to-tr from-blue-600 to-cyan-600'
+              }`}
+            >
               {currentUser.name.charAt(0)}
             </div>
           )}
